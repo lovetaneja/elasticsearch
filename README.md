@@ -27,7 +27,7 @@
  
   3. Configured logstash config file to take input from CSV file and output it to Amazon Elastic Search Cluster. Please see checked in file (logstash-simple.conf).
   
-  4. Run logstash to populate data in Amazon Elastic Search Cluster.
+  4. Run logstash to populate data in Amazon Elastic Search Cluster. It took 15-20 mins approx. to upload 219650 records.
   
      Command to run logstash: bin/logstash -f logstash-simple.conf
  
