@@ -1,4 +1,4 @@
-# Micro service that invokes AWS elastic search and make it available using API gateway.
+# Micro Service with AWS Elastic Search and API Gateway.
 
 # STEP 1 - Set up Elastic Search Domain
 
