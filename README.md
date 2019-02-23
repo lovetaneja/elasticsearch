@@ -1,20 +1,18 @@
-# elasticsearch
-Micro service that invokes AWS elastic search and make it available using API gateway.
+# Micro service that invokes AWS elastic search and make it available using API gateway.
 
-STEP 1 - Set up Elastic Search Domain
+# STEP 1 - Set up Elastic Search Domain
 
   1. Created a new domain in AWS Elastic Search Service with following configurations:
+      Availability zones: 1
+      Instance type: t2.small.elasticsearch
+      Number of instances: 1
     
-    Availability zones: 1
-    Instance type: t2.small.elasticsearch
-    Number of instances: 1
-    
-    Storage type: EBS
-    EBS volume type: General Purpose (SSD)
-    EBS volume size: 10 GB
+      Storage type: EBS
+      EBS volume type: General Purpose (SSD)
+      EBS volume size: 10 GB
    
    
-STEP 2 - Populate Data in Amazon Elastic Search Cluster
+# STEP 2 - Populate Data in Amazon Elastic Search Cluster
 
   1. Installed logstash.
  
@@ -27,7 +25,7 @@ STEP 2 - Populate Data in Amazon Elastic Search Cluster
      bin/logstash -f logstash-simple.conf
  
  
-STEP 3: Verify Data in Amazon Elastic Search Cluster
+# STEP 3: Verify Data in Amazon Elastic Search Cluster
    
    1. Go to Indices tab in Amazon Elastic Search Service and see number of indices created.
       Count: 219650
@@ -40,7 +38,8 @@ STEP 3: Verify Data in Amazon Elastic Search Cluster
       URL: https://search-myelasticsearchcluster-3p7fvdqvbhbj4tpraoqpd36db4.us-east-1.es.amazonaws.com/plans/_search
       Request Type: POST
       Header: Content-Type: application/json
-      Sample Body 1:
+      
+      # Sample Body 1:
       {
         "query": {
           "multi_match": {
@@ -49,7 +48,8 @@ STEP 3: Verify Data in Amazon Elastic Search Cluster
           }
         }
       }
-      Sample Body 2:
+      
+      # Sample Body 2:
       {
         "query": {
           "multi_match": {
@@ -58,7 +58,8 @@ STEP 3: Verify Data in Amazon Elastic Search Cluster
           }
         }
       }
-      Sample Body 3:
+      
+      # Sample Body 3:
       {
         "query": {
           "multi_match": {
