@@ -22,12 +22,14 @@
   1. Installed logstash.
  
   2. Installed logstash-output-amazon_es plugin. This is a connector for logstash and Amazon Elastic Search Cluster.
+     
      Command to install plugin: sudo bin/logstash-plugin install logstash-output-amazon_es 
  
   3. Configured logstash config file to take input from CSV file and output it to Amazon Elastic Search Cluster. Please see checked in file (logstash-simple.conf).
   
   4. Run logstash to populate data in Amazon Elastic Search Cluster.
-     bin/logstash -f logstash-simple.conf
+  
+     Command to run logstash: bin/logstash -f logstash-simple.conf
  
  
 # STEP 3: Verify Data in Amazon Elastic Search Cluster
