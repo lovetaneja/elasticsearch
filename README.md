@@ -3,12 +3,17 @@
 # STEP 1 - Set up Elastic Search Domain
 
   1. Created a new domain in AWS Elastic Search Service with following configurations:
-      Availability zones: 1
+  
+      Availability zones: 1 
+      
       Instance type: t2.small.elasticsearch
+      
       Number of instances: 1
     
       Storage type: EBS
+      
       EBS volume type: General Purpose (SSD)
+      
       EBS volume size: 10 GB
    
    
@@ -39,7 +44,7 @@
       Request Type: POST
       Header: Content-Type: application/json
       
-      # Sample Body 1:
+      Sample Body 1:
       {
         "query": {
           "multi_match": {
@@ -49,7 +54,7 @@
         }
       }
       
-      # Sample Body 2:
+      Sample Body 2:
       {
         "query": {
           "multi_match": {
@@ -59,7 +64,7 @@
         }
       }
       
-      # Sample Body 3:
+      Sample Body 3:
       {
         "query": {
           "multi_match": {
