@@ -33,7 +33,9 @@
 # STEP 3: Verify Data in Amazon Elastic Search Cluster
    
    1. Go to Indices tab in Amazon Elastic Search Service and see number of indices created.
+   
       Count: 219650
+      
       Size in bytes: 511.79 MB
       
    2. Check data in Kibana UI by configuring indices.
