@@ -1,9 +1,10 @@
 package com.personalcapital.searchplans;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
@@ -11,9 +12,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * This is a Main Class for Spring Boot Application
  */
 @SpringBootApplication
-public class SearchApplication extends SpringBootServletInitializer {
+public class SearchApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(SearchApplication.class);
+    private static final Logger log = LogManager.getLogger(SearchApplication.class);
 
     /**
      * @param args
@@ -22,4 +23,5 @@ public class SearchApplication extends SpringBootServletInitializer {
         SpringApplication.run(SearchApplication.class, args);
         log.info("----------------- Starting Search Application ---------------");
     }
+
 }
