@@ -41,11 +41,15 @@
       Size in bytes: 511.79 MB
       
    2. Check data in Kibana UI by configuring indices.
+   
       URL for Kibana: https://search-myelasticsearchcluster-3p7fvdqvbhbj4tpraoqpd36db4.us-east-1.es.amazonaws.com/_plugin/kibana/app/kibana#/discover?_g=()
    
    3. Use Rest APIs of Elastic Search to verify data.
+   
       URL: https://search-myelasticsearchcluster-3p7fvdqvbhbj4tpraoqpd36db4.us-east-1.es.amazonaws.com/plans/_search
+      
       Request Type: POST
+      
       Header: Content-Type: application/json
       
       Sample Body 1:
