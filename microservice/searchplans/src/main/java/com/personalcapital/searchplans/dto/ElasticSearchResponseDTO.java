@@ -3,6 +3,10 @@ package com.personalcapital.searchplans.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * @author love_taneja
+ * This is a DTO for response
+ */
 public class ElasticSearchResponseDTO {
 
     @SerializedName("SPONS_DFE_LOC_FOREIGN_ADDRESS1")
