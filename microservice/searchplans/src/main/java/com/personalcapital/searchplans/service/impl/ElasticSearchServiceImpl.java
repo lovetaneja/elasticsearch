@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.apache.http.HttpHost;
 
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.action.search.SearchRequest;
+
 import java.io.IOException;
 
 /**
@@ -40,26 +42,56 @@ public class ElasticSearchServiceImpl implements SearchService {
      * @param queryParams
      * @return List of Plans
      */
-    public List<String> searchPlans(Map<String, String> queryParams){
+    public List<String> searchPlans(Map<String, String> queryParams) {
         List<String> s = new ArrayList<>();
         s.add("love");
         s.add("taneja");
-        if (log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("searchProperties.getElasticSearchHost() " + searchProperties.getElasticSearchHost());
         }
-        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(searchProperties.getElasticSearchHost())));
+        SearchResponse searchResponse = callAmazonElasticSearchService(queryParams);
 
+        return s;
+    }
+
+    /**
+     * @param queryParams
+     * @return SearchResponse
+     */
+    private SearchResponse callAmazonElasticSearchService(Map<String, String> queryParams) {
+        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(searchProperties.getElasticSearchHost())));
+        SearchResponse response = null;
+        try {
+            response = client.search(buildSearchRequest(queryParams), RequestOptions.DEFAULT);
+        } catch (IOException exc) {
+            log.error("IOException occurred while calling Amazon Elastic Search API ", exc);
+        }
+        return response;
+    }
+
+    /**
+     * @param queryParams
+     * @return SearchRequest
+     */
+    private SearchRequest buildSearchRequest(Map<String, String> queryParams) {
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices(SearchConstants.INDEX_NAME);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchQuery("SPONSOR_DFE_NAME", "MECHANICAL SOLUTIONS1"));
+        queryParams.forEach((k, v) -> {
+            /* @TODO: There is scope to optimize this logic to make it more generic for future. For now, we have requirement to search by 3 fields only.*/
+            if (SearchConstants.QUERY_PARAM_PLAN_NAME.equalsIgnoreCase(k)) {
+                MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SearchConstants.ELASTIC_SEARCH_INDEX_FIELD_PLAN_NAME, v);
+                searchSourceBuilder.query(matchQueryBuilder);
+            } else if (SearchConstants.QUERY_PARAM_SPONSOR_NAME.equalsIgnoreCase(k)) {
+                MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SearchConstants.ELASTIC_SEARCH_INDEX_FIELD_SPONSOR_NAME, v);
+                searchSourceBuilder.query(matchQueryBuilder);
+            } else if (SearchConstants.QUERY_PARAM_SPONSOR_STATE.equalsIgnoreCase(k)) {
+                MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SearchConstants.ELASTIC_SEARCH_INDEX_FIELD_SPONSOR_STATE, v);
+                searchSourceBuilder.query(matchQueryBuilder);
+            }
+        });
         searchRequest.source(searchSourceBuilder);
-
-        try{
-            SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        }catch(IOException exc){
-            log.error("IOException occurred while calling Amazon Elastic Search API ", exc);
-        }
-        return s;
+        return searchRequest;
     }
+
 }
