@@ -1,5 +1,7 @@
 package com.personalcapital.searchplans.service;
 
+import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
+
 import java.util.Map;
 import java.util.List;
 
@@ -9,5 +11,5 @@ import java.util.List;
  */
 
 public interface SearchService {
-    List<String> searchPlans(Map<String, String> queryParams);
+    List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams);
 }

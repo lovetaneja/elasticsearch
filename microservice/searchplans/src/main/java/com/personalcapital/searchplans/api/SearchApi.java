@@ -1,5 +1,6 @@
 package com.personalcapital.searchplans.api;
 
+import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import com.personalcapital.searchplans.exception.ApiException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,5 +16,5 @@ import java.util.List;
 @FunctionalInterface
 public interface SearchApi {
     @RequestMapping(value = "/plans/search", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<List> searchPlans(@RequestParam(value = "query", required = false) String query) throws ApiException;
+    ResponseEntity<List<ElasticSearchResponseDTO>> searchPlans(@RequestParam(value = "query", required = false) String query) throws ApiException;
 }

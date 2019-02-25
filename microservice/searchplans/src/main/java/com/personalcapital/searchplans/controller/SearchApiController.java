@@ -1,6 +1,7 @@
 package com.personalcapital.searchplans.controller;
 
 import com.personalcapital.searchplans.api.SearchApi;
+import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import com.personalcapital.searchplans.exception.ApiException;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -28,8 +29,8 @@ public class SearchApiController implements SearchApi {
     SearchService elasticSearchService;
 
     @Override
-    public ResponseEntity<List> searchPlans(@RequestParam(value = "query", required = false) String query) throws ApiException{
-        List searchPlansList = new ArrayList();
+    public ResponseEntity<List<ElasticSearchResponseDTO>> searchPlans(@RequestParam(value = "query", required = false) String query) throws ApiException{
+        List<ElasticSearchResponseDTO> searchPlansList = new ArrayList();
         if (log.isDebugEnabled()){
             log.debug("query " + query);
         }

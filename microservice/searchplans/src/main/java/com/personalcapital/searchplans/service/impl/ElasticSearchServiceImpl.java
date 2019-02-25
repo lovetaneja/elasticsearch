@@ -1,8 +1,10 @@
 package com.personalcapital.searchplans.service.impl;
 
+import com.google.gson.Gson;
 import com.personalcapital.searchplans.common.SearchConstants;
 import com.personalcapital.searchplans.common.SearchProperties;
 import com.personalcapital.searchplans.controller.SearchApiController;
+import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
@@ -10,6 +12,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,16 +45,20 @@ public class ElasticSearchServiceImpl implements SearchService {
      * @param queryParams
      * @return List of Plans
      */
-    public List<String> searchPlans(Map<String, String> queryParams) {
-        List<String> s = new ArrayList<>();
-        s.add("love");
-        s.add("taneja");
+    public List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams) {
+        List<ElasticSearchResponseDTO> response = new ArrayList<>();
         if (log.isDebugEnabled()) {
             log.debug("searchProperties.getElasticSearchHost() " + searchProperties.getElasticSearchHost());
         }
         SearchResponse searchResponse = callAmazonElasticSearchService(queryParams);
-
-        return s;
+        SearchHit[] searchHits = searchResponse.getHits().getHits();
+        for(SearchHit searchHit: searchHits){
+            String source = searchHit.getSourceAsString();
+            Gson gson = new Gson();
+            ElasticSearchResponseDTO elasticSearchResponseDTO = gson.fromJson(source, ElasticSearchResponseDTO.class);
+            response.add(elasticSearchResponseDTO);
+        }
+        return response;
     }
 
     /**
@@ -93,5 +100,4 @@ public class ElasticSearchServiceImpl implements SearchService {
         searchRequest.source(searchSourceBuilder);
         return searchRequest;
     }
-
 }
