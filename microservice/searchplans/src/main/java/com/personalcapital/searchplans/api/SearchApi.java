@@ -14,6 +14,6 @@ import java.util.List;
  */
 @FunctionalInterface
 public interface SearchApi {
-    @RequestMapping(value = "/plans", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<List> searchPlans(@RequestParam(value = "planName", required = false) String planName, @RequestParam(value = "sponserName", required = false) String sponserName, @RequestParam(value = "sponserState", required = false) String sponserState) throws ApiException;
+    @RequestMapping(value = "/plans/search", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<List> searchPlans(@RequestParam(value = "query", required = false) String query) throws ApiException;
 }
