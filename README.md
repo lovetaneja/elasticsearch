@@ -103,7 +103,7 @@
       viii. log4j2: 2.11.2
       
   
-  2. Following are few things which have been taken into consideration while implementing this microservice.
+  2. Following are few points which have been taken into consideration while implementing this microservice.
   
       i.    Versioning has been done for the API.
       
