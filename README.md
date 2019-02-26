@@ -120,5 +120,15 @@
       vii.  Validations have been done for the input data.
       
       viii. Custom Error Code and Error messages have been implemented for failure scenarios.
+      
+      
+  3. Sample URLs
+  
+     Search by Plan Name: http://localhost:8080/v1/plans/search?query=planName:MECHANICAL SOLUTIONS
+
+     Search by Sponsor Name: http://localhost:8080/v1/plans/search?query=sponsorName:SPECIALTY INSURANCE AGENCY
+
+     Search by Sponsor State: http://localhost:8080/v1/plans/search?query=sponsorState:CA
+
   
   
