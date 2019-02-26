@@ -82,3 +82,25 @@
         }
       }
  
+# STEP 4:Developed a Microservice which invoke Amazon Elastic Search Service
+  
+  Following Technologies (with their latest versions) have been used to develop a microservice.
+  
+  1. Spring Boot: 2.1.3.RELEASE
+  
+  2. Spring: 5.1.5.RELEASE
+  
+  3. Elastic Search Library: 6.6.1
+  
+  4. httpcore: 4.4.11
+  
+  5. httpclient: 4.5.7
+  
+  6. Gson: 2.8.5
+  
+  7. Hamcrest: 2.1
+  
+  8. log4j2: 2.11.2
+  
+  
+  
