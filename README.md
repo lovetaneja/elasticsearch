@@ -124,9 +124,9 @@
       
   3. Sample URLs
   
-     Search by Plan Name: http://localhost:8080/v1/plans/search?query=planName:MECHANICAL SOLUTIONS
+     Search by Plan Name: http://localhost:8080/v1/plans/search?query=planName:MECHANICAL%20SOLUTIONS
 
-     Search by Sponsor Name: http://localhost:8080/v1/plans/search?query=sponsorName:SPECIALTY INSURANCE AGENCY
+     Search by Sponsor Name: http://localhost:8080/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
 
      Search by Sponsor State: http://localhost:8080/v1/plans/search?query=sponsorState:CA
 
