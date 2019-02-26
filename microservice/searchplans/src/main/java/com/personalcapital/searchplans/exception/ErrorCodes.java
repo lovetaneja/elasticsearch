@@ -34,4 +34,8 @@ public class ErrorCodes {
 
     public static final int SEARCH_HIT_NULL_ERROR_CODE = 2008;
 
+    public static final int QUERY_PARAMETER_MAP_NULL_ERROR_CODE = 2009;
+
+    public static final int QUERY_PARAMETER_MAP_EMPTY_ERROR_CODE = 2010;
+
 }

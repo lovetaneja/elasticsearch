@@ -50,6 +50,12 @@ public class ElasticSearchServiceImpl implements SearchService {
      * @throws ApiException
      */
     public List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams) throws IOException, ApiException {
+        if (queryParams == null){
+            throw new ApiException(ErrorCodes.QUERY_PARAMETER_MAP_NULL_ERROR_CODE, "Error Response from Search API - searchResponse is Null");
+        }
+        if (queryParams.size() == 0){
+            throw new ApiException(ErrorCodes.QUERY_PARAMETER_MAP_EMPTY_ERROR_CODE, "Error Response from Search API - searchResponse is Null");
+        }
         SearchResponse searchResponse = callAmazonElasticSearchService(queryParams);
         return parseResponse(searchResponse);
     }
