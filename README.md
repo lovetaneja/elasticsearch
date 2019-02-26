@@ -132,6 +132,7 @@
      
      
   4. Sample Success Response
+  
      [
       {
         "sponsDefLocForeignAddress1": null,
@@ -279,6 +280,7 @@
       
       
  5. Sample Error Response  
+ 
     {
       "url": "http://localhost:8080/v1/plans/search",
       "errorCode": 1002,
