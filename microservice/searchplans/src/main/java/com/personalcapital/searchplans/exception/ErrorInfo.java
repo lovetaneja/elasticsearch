@@ -14,10 +14,15 @@ public class ErrorInfo {
     public final String errorMessage;
 
 
-    public ErrorInfo(StringBuffer url, int code, Exception ex) {
+    /**
+     * @param url
+     * @param code
+     * @param exception
+     */
+    public ErrorInfo(StringBuffer url, int code, Exception exception) {
         this.url = url.toString();
         this.errorCode = code;
-        this.errorMessage = ex.getLocalizedMessage();
+        this.errorMessage = exception.getLocalizedMessage();
     }
 
 }

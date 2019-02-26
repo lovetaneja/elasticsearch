@@ -1,16 +1,12 @@
 package com.personalcapital.searchplans.service.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.JsonParseException;
 import com.personalcapital.searchplans.common.SearchConstants;
 import com.personalcapital.searchplans.common.SearchProperties;
 import com.personalcapital.searchplans.controller.SearchApiController;
 import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import com.personalcapital.searchplans.exception.ApiException;
 import com.personalcapital.searchplans.exception.ErrorCodes;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
@@ -34,6 +30,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.action.search.SearchRequest;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author love_taneja
@@ -52,7 +49,7 @@ public class ElasticSearchServiceImpl implements SearchService {
      * @return List of Plans
      * @throws ApiException
      */
-    public List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams) throws ApiException {
+    public List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams) throws IOException, ApiException {
         SearchResponse searchResponse = callAmazonElasticSearchService(queryParams);
         return parseResponse(searchResponse);
     }
@@ -62,25 +59,12 @@ public class ElasticSearchServiceImpl implements SearchService {
      * @return SearchResponse
      * @throws ApiException
      */
-    private SearchResponse callAmazonElasticSearchService(Map<String, String> queryParams) throws ApiException {
+    private SearchResponse callAmazonElasticSearchService(Map<String, String> queryParams) throws IOException, ApiException {
         if (log.isDebugEnabled()) {
             log.debug("searchProperties.getElasticSearchHost() " + searchProperties.getElasticSearchHost());
         }
         RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(searchProperties.getElasticSearchHost())));
-        SearchResponse response = null;
-        try {
-            response = client.search(buildSearchRequest(queryParams), RequestOptions.DEFAULT);
-        } catch (ClientProtocolException clientProtocolException) {
-            log.error("ClientProtocolException occurred while calling Amazon Elastic Search API ", clientProtocolException.getMessage(), clientProtocolException);
-            throw new ApiException(ErrorCodes.REST_CALL_CLIENT_PROTOCOL_EXCEPTION_CODE, "IOException occurred while calling Amazon Elastic Search API");
-        } catch (IOException ioException) {
-            log.error("IOException occurred while calling Amazon Elastic Search API ", ioException.getMessage(), ioException);
-            throw new ApiException(ErrorCodes.REST_CALL_IO_EXCEPTION_CODE, "IOException occurred while calling Amazon Elastic Search API");
-        } catch (Exception exception) {
-            log.error("Exception occured while calling Lifelock Native APIs:" + exception.getMessage(), exception);
-            throw new ApiException(ErrorCodes.REST_CALL_EXCEPTION_CODE, "Exception occurred while calling Amazon Elastic Search API");
-        }
-        return response;
+        return client.search(buildSearchRequest(queryParams), RequestOptions.DEFAULT);
     }
 
     /**
@@ -116,32 +100,20 @@ public class ElasticSearchServiceImpl implements SearchService {
      */
     private List<ElasticSearchResponseDTO> parseResponse(SearchResponse searchResponse) throws ApiException {
         List<ElasticSearchResponseDTO> apiResponse = new ArrayList<>();
-        if(searchResponse!=null){
+        if (searchResponse != null) {
             SearchHit[] searchHits = searchResponse.getHits().getHits();
             for (SearchHit searchHit : searchHits) {
-                if (searchHit!=null){
+                if (searchHit != null) {
                     String source = searchHit.getSourceAsString();
                     Gson gson = new Gson();
-                    ElasticSearchResponseDTO elasticSearchResponseDTO = null;
-                    try {
-                        elasticSearchResponseDTO = gson.fromJson(source, ElasticSearchResponseDTO.class);
-                    } catch (JsonSyntaxException jsonSyntaxException) {
-                        log.error("JsonSyntaxException occurred while parsing response of Amazon Elastic Search API ", jsonSyntaxException.getMessage(), jsonSyntaxException);
-                        throw new ApiException(ErrorCodes.PARSE_RESPONSE_JSON_SYNTAX_EXCEPTION_CODE, "IOException occurred while calling Amazon Elastic Search API");
-                    } catch (JsonIOException jsonIOException) {
-                        log.error("JsonIOException occurred while parsing response of Amazon Elastic Search API ", jsonIOException.getMessage(), jsonIOException);
-                        throw new ApiException(ErrorCodes.PARSE_RESPONSE_JSON_IO_EXCEPTION_CODE, "IOException occurred while calling Amazon Elastic Search API");
-                    } catch (JsonParseException jsonParseException) {
-                        log.error("JsonParseException occurred while parsing response of Amazon Elastic Search API ", jsonParseException.getMessage(), jsonParseException);
-                        throw new ApiException(ErrorCodes.PARSE_RESPONSE_JSON_PARSE_EXCEPTION_CODE, "IOException occurred while calling Amazon Elastic Search API");
-                    }
+                    ElasticSearchResponseDTO elasticSearchResponseDTO = gson.fromJson(source, ElasticSearchResponseDTO.class);
                     apiResponse.add(elasticSearchResponseDTO);
-                }else{
+                } else {
                     log.error("searchHit is Null");
                     throw new ApiException(ErrorCodes.SEARCH_HIT_NULL_ERROR_CODE, "Error Response from Search API - searchHit is Null");
                 }
             }
-        }else{
+        } else {
             log.error("searchResponse is Null");
             throw new ApiException(ErrorCodes.SEARCH_RESPONSE_NULL_ERROR_CODE, "Error Response from Search API - searchResponse is Null");
         }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +16,12 @@ import java.util.List;
  */
 @FunctionalInterface
 public interface SearchApi {
+    /**
+     * @param query
+     * @return ResponseEntity
+     * @throws IOException
+     * @throws ApiException
+     */
     @RequestMapping(value = "/plans/search", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<List<ElasticSearchResponseDTO>> searchPlans(@RequestParam(value = "query", required = false) String query) throws ApiException;
+    ResponseEntity<List<ElasticSearchResponseDTO>> searchPlans(@RequestParam(value = "query", required = false) String query) throws IOException, ApiException;
 }

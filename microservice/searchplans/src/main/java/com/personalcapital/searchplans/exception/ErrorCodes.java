@@ -6,6 +6,18 @@ package com.personalcapital.searchplans.exception;
  */
 public class ErrorCodes {
 
+    public static final int VALIDATIONS_QUERY_PARAMETER_NULL_ERROR_CODE = 1001;
+
+    public static final int VALIDATIONS_QUERY_PARAMETER_NOT_VALID_PATTERN_ERROR_CODE = 1002;
+
+    public static final int VALIDATIONS_QUERY_PARAMETER_NOT_VALID_NAME_ERROR_CODE = 1003;
+
+    public static final int VALIDATIONS_QUERY_PARAMETER_PLAN_NAME_SIZE_ERROR_CODE = 1004;
+
+    public static final int VALIDATIONS_QUERY_PARAMETER_SPONSOR_NAME_SIZE_ERROR_CODE = 1005;
+
+    public static final int VALIDATIONS_QUERY_PARAMETER_SPONSOR_STATE_SIZE_ERROR_CODE = 1005;
+
     public static final int REST_CALL_CLIENT_PROTOCOL_EXCEPTION_CODE = 2001;
 
     public static final int REST_CALL_IO_EXCEPTION_CODE = 2002;

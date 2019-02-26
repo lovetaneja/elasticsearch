@@ -3,6 +3,7 @@ package com.personalcapital.searchplans.service;
 import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import com.personalcapital.searchplans.exception.ApiException;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.List;
 
@@ -12,5 +13,11 @@ import java.util.List;
  */
 
 public interface SearchService {
-    List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams) throws ApiException;
+    /**
+     * @param queryParams
+     * @return List<ElasticSearchResponseDTO>
+     * @throws IOException
+     * @throws ApiException
+     */
+    List<ElasticSearchResponseDTO> searchPlans(Map<String, String> queryParams) throws IOException, ApiException;
 }
