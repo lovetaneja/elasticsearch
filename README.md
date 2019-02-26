@@ -82,7 +82,7 @@
         }
       }
  
-# STEP 4:Developed a Microservice which invoke Amazon Elastic Search Service
+# STEP 4: Developed a Microservice which invoke Amazon Elastic Search Service
   
   Following Technologies (with their latest versions) have been used to develop a microservice.
   
