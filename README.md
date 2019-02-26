@@ -109,7 +109,7 @@
       
       ii.   Exception handling has been done in a centralized place using Spring Controller Advice.
       
-      iii.  Java 8 features have been used in coding. E.g. lanbda, streams
+      iii.  Java 8 features have been used in coding. E.g. lambda, streams etc.
       
       iv.   Service layer is loosely coupled so that implementation can be changed without modifying other components.
       
