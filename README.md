@@ -107,11 +107,11 @@
   
       i.    Versioning has been done for the API.
       
-      ii.   Excpetion handling has been done in a centralized place using Spring Controller Advice.
+      ii.   Exception handling has been done in a centralized place using Spring Controller Advice.
       
       iii.  Java 8 features have been used in coding. E.g. lanbda, streams
       
-      iv.   Service layer has been written using Interface so that implementation can be changed without modifying most of the code.
+      iv.   Service layer is loosely coupled so that implementation can be changed without modifying other components.
       
       v.    Junits have been written for positive and negative scenarios.
       
