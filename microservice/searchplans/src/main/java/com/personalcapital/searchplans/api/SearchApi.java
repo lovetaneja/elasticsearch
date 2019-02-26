@@ -22,6 +22,6 @@ public interface SearchApi {
      * @throws IOException
      * @throws ApiException
      */
-    @RequestMapping(value = "/plans/search", produces = {"application/json"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/plans/search", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<List<ElasticSearchResponseDTO>> searchPlans(@RequestParam(value = "query", required = false) String query) throws IOException, ApiException;
 }
