@@ -21,7 +21,7 @@ import java.io.IOException;
  * This is a Global Exception Handler
  */
 @ControllerAdvice(annotations = Controller.class)
-class GlobalExceptionHandler {
+public class GlobalExceptionHandler {
 
     private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
