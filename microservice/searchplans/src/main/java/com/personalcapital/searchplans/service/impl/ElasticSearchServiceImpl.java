@@ -30,7 +30,6 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.action.search.SearchRequest;
 
 import java.io.IOException;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author love_taneja
