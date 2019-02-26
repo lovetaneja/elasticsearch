@@ -86,34 +86,39 @@
   
   1. Following Technologies (with their latest versions) have been used to develop a microservice.
   
-      i. Spring Boot: 2.1.3.RELEASE
+      i.    Spring Boot: 2.1.3.RELEASE
   
-      ii. Spring: 5.1.5.RELEASE
+      ii.   Spring: 5.1.5.RELEASE
   
-      iii. Elastic Search Library: 6.6.1
+      iii.  Elastic Search Library: 6.6.1
   
-      iv. httpcore: 4.4.11
+      iv.   httpcore: 4.4.11
   
-      v. httpclient: 4.5.7
+      v.    httpclient: 4.5.7
   
-      vi. Gson: 2.8.5
+      vi.   Gson: 2.8.5
   
-      vii. Hamcrest: 2.1
+      vii.  Hamcrest: 2.1
   
       viii. log4j2: 2.11.2
       
   
   2. Following are few things which have been taken into consideration while implementing this microservice.
   
-      i.   Versioning has been done for the API.
+      i.    Versioning has been done for the API.
       
-      ii.  Excpetion handling has been done in a centralized place using Spring Controller Advice
+      ii.   Excpetion handling has been done in a centralized place using Spring Controller Advice.
       
-      iii. Java 8 features have been used in coding. E.g. lanbda, streams
+      iii.  Java 8 features have been used in coding. E.g. lanbda, streams
       
-      iv.  Service layer has been written using Interface so that implementation can be changed without modifying most of the code.
-      v.   Junits have been written for positive and negative scenarios.
+      iv.   Service layer has been written using Interface so that implementation can be changed without modifying most of the code.
       
-      vi.  Logs have been written to external log files with rollover features.
+      v.    Junits have been written for positive and negative scenarios.
+      
+      vi.   Logs have been written to external log files with rollover features.
+      
+      vii.  Validations have been done for the input data.
+      
+      viii. Custom Error Code and Error messages have been implemented for failure scenarios.
   
   
