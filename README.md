@@ -292,8 +292,21 @@
     }
   
   
-# STEP 5: Deployment Script and Externalization of Properties files
+# STEP 5: Deployment on Amazon EC2 Instance and Externalization of Properties files and 
   
   1. Wrote a shell script which will run executable jar file and start the spring boot application.
   
   2. application.properties and log4j2.xml files have been externalized as values in these files will be environment specific.
+  
+  3. Created an EC2 instance, installed java and deployed application on it.
+  
+  4. Added an Inbound Rule in Security Group to allow TCP Protocol on Port 8080.
+  
+  5. Tested application with following URLs.
+  
+      http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=planName:MECHANICAL SOLUTIONS
+
+      http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=sponsorName:SPECIALTY INSURANCE AGENCY
+
+      http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=sponsorState:CA
+
