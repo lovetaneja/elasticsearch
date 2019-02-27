@@ -32,7 +32,7 @@
      Command to run logstash: bin/logstash -f logstash-simple.conf
  
  
-# STEP 3: Verify Data in Amazon Elastic Search Cluster
+# STEP 3 - Verify Data in Amazon Elastic Search Cluster
    
    1. Go to Indices tab in Amazon Elastic Search Service and see number of indices created.
    
@@ -82,7 +82,7 @@
         }
       }
  
-# STEP 4: Developed a Microservice which invoke Amazon Elastic Search Service
+# STEP 4 - Developed a Microservice which invoke Amazon Elastic Search Service
   
   1. Following Technologies (with their latest versions) have been used to develop a microservice.
   
@@ -292,7 +292,7 @@
     }
   
   
-# STEP 5: Created Deployment Shell Script, Externalized Properties files and Deployed on Amazon EC2 Private Instance. 
+# STEP 5 - Created Deployment Shell Script, Externalized Properties files and Deployed on Amazon EC2 Private Instance. 
   
   1. Wrote a shell script which will run executable jar file to start the spring boot application.
   
