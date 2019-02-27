@@ -102,6 +102,8 @@
   
       viii. log4j2: 2.11.2
       
+      ix.   jacoco: 0.8.3 
+      
   
   2. Following are few points which have been taken into consideration while implementing this microservice.
   
@@ -120,6 +122,8 @@
       vii.  Validations have been done for the input data.
       
       viii. Custom Error Code and Error messages have been implemented for failure scenarios.
+      
+      ix.   jacoco has been used for code coverage.
       
       
   3. Sample URLs
