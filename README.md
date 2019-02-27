@@ -292,3 +292,8 @@
     }
   
   
+# STEP 5: Deployment Script and Externalization of Properties files
+  
+  1. Wrote a shell script which will run executable jar file and start the spring boot application.
+  
+  2. application.properties and log4j2.xml files have been externalized as values in these files will be environment specific.
