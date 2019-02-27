@@ -298,9 +298,9 @@
   
   2. application.properties and log4j2.xml files have been externalized as values in these files will be environment specific.
   
-  3. Created an EC2 instance, installed java and deployed application on it.
+  3. Created an EC2 instance in a private subnet using CloudFormation template along with other supporting components (Nat Gateway, Elastic IP, Bastion Host, Elastic Load Balacer, Security Groups, Routing Tables, Routes, Internet Gateway etc.)
   
-  4. Added an Inbound Rule in Security Group to allow TCP Protocol on Port 8080.
+  4. Deployed application on private EC2 instance.
   
   5. Tested application with following URLs.
   
