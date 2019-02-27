@@ -84,7 +84,7 @@
  
 # STEP 4 - Developed a Microservice which invoke Amazon Elastic Search Service
   
-  1. Following Technologies (with their latest versions) have been used to develop a microservice.
+  1. Following libraries (with their latest versions) have been used to develop a microservice.
   
       i.    Spring Boot: 2.1.3.RELEASE
   
