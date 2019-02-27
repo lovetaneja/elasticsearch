@@ -304,9 +304,7 @@
   
   5. Tested application with following URLs.
   
-      http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=planName:MECHANICAL SOLUTIONS
-
-      http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=sponsorName:SPECIALTY INSURANCE AGENCY
+      http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=planName:MECHANICAL%20SOLUTIONS%20AGENCY
 
       http://ec2-18-206-197-31.compute-1.amazonaws.com:8080/v1/plans/search?query=sponsorState:CA
 
