@@ -32,7 +32,7 @@
      Command to run logstash: bin/logstash -f logstash-simple.conf
  
  
-# STEP 3: Verify Data in Amazon Elastic Search Cluster
+# STEP 3 - Verify Data in Amazon Elastic Search Cluster
    
    1. Go to Indices tab in Amazon Elastic Search Service and see number of indices created.
    
@@ -82,7 +82,7 @@
         }
       }
  
-# STEP 4: Developed a Microservice which invoke Amazon Elastic Search Service
+# STEP 4 - Developed a Microservice which invoke Amazon Elastic Search Service
   
   1. Following Technologies (with their latest versions) have been used to develop a microservice.
   
@@ -292,3 +292,23 @@
     }
   
   
+# STEP 5 - Created Deployment Shell Script, Externalized Properties files and Deployed on Amazon EC2 Private Instance. 
+  
+  1. Wrote a shell script which will run executable jar file to start the spring boot application.
+  
+  2. application.properties and log4j2.xml files have been externalized as values in these files will be environment specific.
+  
+  3. Created an EC2 instance in a private subnet using CloudFormation template along with other supporting components (Nat Gateway, Elastic IP, Bastion Host, Elastic Load Balacer, Security Groups, Routing Tables, Routes, Internet Gateway etc.)
+  
+  4. Deployed application on private EC2 instance.
+  
+  5. Tested application with following URLs.
+  
+      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
+
+
+      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
+
+
+      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorState:CA
+
