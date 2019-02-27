@@ -307,7 +307,7 @@
       http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
 
 
-      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorName:SPECIALTY INSURANCE AGENCY
+      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
 
 
       http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans/search?query=sponsorState:CA
