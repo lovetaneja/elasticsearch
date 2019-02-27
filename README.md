@@ -292,7 +292,7 @@
     }
   
   
-# STEP 5: Deployment on Amazon EC2 Instance and Externalization of Properties files and 
+# STEP 5: Created deployment shell script, Externalized Properties files and Deployment on Amazon EC2 Private Instance 
   
   1. Wrote a shell script which will run executable jar file and start the spring boot application.
   
