@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ElasticSearchServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">searchplans</a> &gt; <a href="index.source.html" class="el_package">com.personalcapital.searchplans.service.impl</a> &gt; <span class="el_source">ElasticSearchServiceImpl.java</span></div><h1>ElasticSearchServiceImpl.java</h1><pre class="source lang-java linenums">package com.personalcapital.searchplans.service.impl;
+
+import com.google.gson.Gson;
+import com.personalcapital.searchplans.common.SearchConstants;
+import com.personalcapital.searchplans.common.SearchProperties;
+import com.personalcapital.searchplans.controller.SearchApiController;
+import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
+import com.personalcapital.searchplans.exception.ApiException;
+import com.personalcapital.searchplans.exception.ErrorCodes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.personalcapital.searchplans.service.SearchService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpHost;
+
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.action.search.SearchRequest;
+
+import java.io.IOException;
+
+/**
+ * @author love_taneja
+ * This is a Service Class for Elastic Search Service for searchPlans API
+ */
+@Service(&quot;elasticSearchService&quot;)
+<span class="fc" id="L39">public class ElasticSearchServiceImpl implements SearchService {</span>
+
+<span class="fc" id="L41">    private static final Logger log = LogManager.getLogger(SearchApiController.class);</span>
+
+    @Autowired
+    protected SearchProperties searchProperties;
+
+    /**
+     * @param queryParams
+     * @return List of Plans
+     * @throws ApiException
+     */
+    public List&lt;ElasticSearchResponseDTO&gt; searchPlans(Map&lt;String, String&gt; queryParams) throws IOException, ApiException {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (queryParams == null){</span>
+<span class="fc" id="L53">            throw new ApiException(ErrorCodes.QUERY_PARAMETER_MAP_NULL_ERROR_CODE, &quot;Error Response from Search API - searchResponse is Null&quot;);</span>
+        }
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (queryParams.size() == 0){</span>
+<span class="fc" id="L56">            throw new ApiException(ErrorCodes.QUERY_PARAMETER_MAP_EMPTY_ERROR_CODE, &quot;Error Response from Search API - searchResponse is Null&quot;);</span>
+        }
+<span class="fc" id="L58">        SearchResponse searchResponse = callAmazonElasticSearchService(queryParams);</span>
+<span class="fc" id="L59">        return parseResponse(searchResponse);</span>
+    }
+
+    /**
+     * @param queryParams
+     * @return SearchResponse
+     * @throws ApiException
+     */
+    private SearchResponse callAmazonElasticSearchService(Map&lt;String, String&gt; queryParams) throws IOException, ApiException {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (log.isDebugEnabled()) {</span>
+<span class="fc" id="L69">            log.debug(&quot;searchProperties.getElasticSearchHost() &quot; + searchProperties.getElasticSearchHost());</span>
+        }
+<span class="fc" id="L71">        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(searchProperties.getElasticSearchHost())));</span>
+<span class="fc" id="L72">        return client.search(buildSearchRequest(queryParams), RequestOptions.DEFAULT);</span>
+    }
+
+    /**
+     * @param queryParams
+     * @return SearchRequest
+     * @throws ApiException
+     */
+    private SearchRequest buildSearchRequest(Map&lt;String, String&gt; queryParams) throws ApiException {
+<span class="fc" id="L81">        SearchRequest searchRequest = new SearchRequest();</span>
+<span class="fc" id="L82">        searchRequest.indices(SearchConstants.INDEX_NAME);</span>
+<span class="fc" id="L83">        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();</span>
+<span class="fc" id="L84">        queryParams.forEach((k, v) -&gt; {</span>
+            /* @TODO: There is scope to optimize this logic to make it more generic for future. For now, we have requirement to search by 3 fields only.*/
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (SearchConstants.QUERY_PARAM_PLAN_NAME.equalsIgnoreCase(k)) {</span>
+<span class="fc" id="L87">                MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SearchConstants.ELASTIC_SEARCH_INDEX_FIELD_PLAN_NAME, v);</span>
+<span class="fc" id="L88">                searchSourceBuilder.query(matchQueryBuilder);</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            } else if (SearchConstants.QUERY_PARAM_SPONSOR_NAME.equalsIgnoreCase(k)) {</span>
+<span class="fc" id="L90">                MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SearchConstants.ELASTIC_SEARCH_INDEX_FIELD_SPONSOR_NAME, v);</span>
+<span class="fc" id="L91">                searchSourceBuilder.query(matchQueryBuilder);</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">            } else if (SearchConstants.QUERY_PARAM_SPONSOR_STATE.equalsIgnoreCase(k)) {</span>
+<span class="fc" id="L93">                MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SearchConstants.ELASTIC_SEARCH_INDEX_FIELD_SPONSOR_STATE, v);</span>
+<span class="fc" id="L94">                searchSourceBuilder.query(matchQueryBuilder);</span>
+            }
+<span class="fc" id="L96">        });</span>
+<span class="fc" id="L97">        searchRequest.source(searchSourceBuilder);</span>
+<span class="fc" id="L98">        return searchRequest;</span>
+    }
+
+    /**
+     * @param searchResponse
+     * @return
+     * @throws ApiException
+     */
+    private List&lt;ElasticSearchResponseDTO&gt; parseResponse(SearchResponse searchResponse) throws ApiException {
+<span class="fc" id="L107">        List&lt;ElasticSearchResponseDTO&gt; apiResponse = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (searchResponse != null) {</span>
+<span class="fc" id="L109">            SearchHit[] searchHits = searchResponse.getHits().getHits();</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            for (SearchHit searchHit : searchHits) {</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">                if (searchHit != null) {</span>
+<span class="fc" id="L112">                    String source = searchHit.getSourceAsString();</span>
+<span class="fc" id="L113">                    Gson gson = new Gson();</span>
+<span class="fc" id="L114">                    ElasticSearchResponseDTO elasticSearchResponseDTO = gson.fromJson(source, ElasticSearchResponseDTO.class);</span>
+<span class="fc" id="L115">                    apiResponse.add(elasticSearchResponseDTO);</span>
+<span class="fc" id="L116">                } else {</span>
+<span class="nc" id="L117">                    log.error(&quot;searchHit is Null&quot;);</span>
+<span class="nc" id="L118">                    throw new ApiException(ErrorCodes.SEARCH_HIT_NULL_ERROR_CODE, &quot;Error Response from Search API - searchHit is Null&quot;);</span>
+                }
+            }
+<span class="fc" id="L121">        } else {</span>
+<span class="nc" id="L122">            log.error(&quot;searchResponse is Null&quot;);</span>
+<span class="nc" id="L123">            throw new ApiException(ErrorCodes.SEARCH_RESPONSE_NULL_ERROR_CODE, &quot;Error Response from Search API - searchResponse is Null&quot;);</span>
+        }
+<span class="fc" id="L125">        return apiResponse;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

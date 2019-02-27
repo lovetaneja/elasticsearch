@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">searchplans</a> &gt; <a href="index.source.html" class="el_package">com.personalcapital.searchplans.controller</a> &gt; <span class="el_source">SearchApiController.java</span></div><h1>SearchApiController.java</h1><pre class="source lang-java linenums">package com.personalcapital.searchplans.controller;
+
+import com.personalcapital.searchplans.api.SearchApi;
+import com.personalcapital.searchplans.common.SearchConstants;
+import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
+import com.personalcapital.searchplans.exception.ApiException;
+import com.personalcapital.searchplans.exception.ErrorCodes;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.personalcapital.searchplans.service.SearchService;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * @author love_taneja
+ * This is a controller class for searchPlans API
+ */
+@Controller
+<span class="fc" id="L27">public class SearchApiController implements SearchApi {</span>
+
+<span class="fc" id="L29">    private static final Logger log = LogManager.getLogger(SearchApiController.class);</span>
+
+    @Autowired
+    SearchService elasticSearchService;
+
+    /**
+     * @param query
+     * @return ResponseEntity
+     * @throws IOException
+     * @throws ApiException
+     */
+    @Override
+    public ResponseEntity&lt;List&lt;ElasticSearchResponseDTO&gt;&gt; searchPlans(@RequestParam(value = &quot;query&quot;, required = false) String query) throws IOException, ApiException{
+<span class="nc" id="L42">        List&lt;ElasticSearchResponseDTO&gt; searchPlansList = new ArrayList();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L44">            log.debug(&quot;query &quot; + query);</span>
+        }
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (!StringUtils.isEmpty(query)) {</span>
+<span class="nc" id="L47">            Map&lt;String, String&gt; queryParamsMap = getQueryParameters(query);</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L49">                log.debug(&quot;queryParamsMap is :: &quot; + queryParamsMap);</span>
+            }
+            // validations for query parameters
+<span class="nc" id="L52">            validateQueryParameters(queryParamsMap);</span>
+
+<span class="nc" id="L54">            searchPlansList = elasticSearchService.searchPlans(queryParamsMap);</span>
+<span class="nc" id="L55">        } else {</span>
+<span class="nc" id="L56">            throw new ApiException(ErrorCodes.VALIDATIONS_QUERY_PARAMETER_NULL_ERROR_CODE, &quot;Error Response from Search API - Query Parameter is Null/Empty&quot;);</span>
+        }
+<span class="nc" id="L58">        return new ResponseEntity&lt;&gt;(searchPlansList, HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param query
+     * @return Map of Query Parameters
+     */
+    private Map&lt;String, String&gt; getQueryParameters(String query) {
+<span class="nc" id="L66">        Map&lt;String, String&gt; queryParamsMap = Arrays.stream(query.split(&quot;,&quot;))</span>
+<span class="nc" id="L67">                .map(s -&gt; s.split(&quot;:&quot;))</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                .filter(a -&gt; a.length == 2)</span>
+<span class="nc" id="L69">                .collect(Collectors.toMap(</span>
+<span class="nc" id="L70">                        a -&gt; a[0],  //key</span>
+<span class="nc" id="L71">                        a -&gt; a[1]  //value</span>
+                ));
+<span class="nc" id="L73">        return queryParamsMap;</span>
+    }
+
+    /**
+     * @param queryParamsMap
+     * @throws ApiException
+     */
+    private void validateQueryParameters(Map&lt;String, String&gt; queryParamsMap) throws ApiException{
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (queryParamsMap.size() == 0) {</span>
+<span class="nc" id="L82">            throw new ApiException(ErrorCodes.VALIDATIONS_QUERY_PARAMETER_NOT_VALID_PATTERN_ERROR_CODE, &quot;Error Response from Search API - Query Parameter Pattern is Not Valid&quot;);</span>
+        }
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (!(queryParamsMap.containsKey(SearchConstants.QUERY_PARAM_PLAN_NAME)</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">                || queryParamsMap.containsKey(SearchConstants.QUERY_PARAM_SPONSOR_NAME)</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">                || queryParamsMap.containsKey(SearchConstants.QUERY_PARAM_SPONSOR_STATE))) {</span>
+<span class="nc" id="L87">            throw new ApiException(ErrorCodes.VALIDATIONS_QUERY_PARAMETER_NOT_VALID_NAME_ERROR_CODE, &quot;Error Response from Search API - Query Parameter is Not Valid&quot;);</span>
+        }
+<span class="nc bnc" id="L89" title="All 4 branches missed.">        if (queryParamsMap.containsKey(SearchConstants.QUERY_PARAM_PLAN_NAME) &amp;&amp; queryParamsMap.get(SearchConstants.QUERY_PARAM_PLAN_NAME).length() &gt; 140) {</span>
+<span class="nc" id="L90">            throw new ApiException(ErrorCodes.VALIDATIONS_QUERY_PARAMETER_PLAN_NAME_SIZE_ERROR_CODE, &quot;Error Response from Search API - Length of planName can't be more than 140&quot;);</span>
+        }
+<span class="nc bnc" id="L92" title="All 4 branches missed.">        if (queryParamsMap.containsKey(SearchConstants.QUERY_PARAM_SPONSOR_NAME) &amp;&amp; queryParamsMap.get(SearchConstants.QUERY_PARAM_SPONSOR_NAME).length() &gt; 70) {</span>
+<span class="nc" id="L93">            throw new ApiException(ErrorCodes.VALIDATIONS_QUERY_PARAMETER_SPONSOR_NAME_SIZE_ERROR_CODE, &quot;Error Response from Search API - Length of sponsorName can't be more than 70&quot;);</span>
+        }
+<span class="nc bnc" id="L95" title="All 4 branches missed.">        if (queryParamsMap.containsKey(SearchConstants.QUERY_PARAM_SPONSOR_STATE) &amp;&amp; queryParamsMap.get(SearchConstants.QUERY_PARAM_SPONSOR_STATE).length() &gt; 2) {</span>
+<span class="nc" id="L96">            throw new ApiException(ErrorCodes.VALIDATIONS_QUERY_PARAMETER_SPONSOR_STATE_SIZE_ERROR_CODE, &quot;Error Response from Search API - Length of sponsorState can't be more than 2&quot;);</span>
+        }
+<span class="nc" id="L98">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

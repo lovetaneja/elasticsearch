@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+searchplans,com.personalcapital.searchplans.exception,ErrorCodes,3,0,0,0,1,0,1,0,1,0
+searchplans,com.personalcapital.searchplans.exception,ErrorInfo,14,0,0,0,5,0,1,0,1,0
+searchplans,com.personalcapital.searchplans.exception,GlobalExceptionHandler,127,7,0,0,14,2,7,2,7,2
+searchplans,com.personalcapital.searchplans.exception,ApiException,0,10,0,0,0,4,0,2,0,2
+searchplans,com.personalcapital.searchplans.controller,SearchApiController,173,7,28,0,32,2,21,2,7,2
+searchplans,com.personalcapital.searchplans.service.impl,ElasticSearchServiceImpl,18,185,4,14,4,40,4,12,0,7
+searchplans,com.personalcapital.searchplans.common,SearchConstants,3,0,0,0,1,0,1,0,1,0
+searchplans,com.personalcapital.searchplans.common,SearchProperties,0,10,0,0,0,4,0,3,0,3
+searchplans,com.personalcapital.searchplans,SearchApplication,8,7,0,0,3,2,1,2,1,2
+searchplans,com.personalcapital.searchplans.dto,ElasticSearchResponseDTO,980,3,0,0,420,1,280,1,280,1
