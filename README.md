@@ -348,13 +348,13 @@
   
   6. Following are sample http response status returned from lambda function.
   
-      200 OK: authorization token has a 'allow' value
+      200 OK: If authorization token has a 'allow' value
   
-      403 Forbidden: authorization token has a 'deny' value
+      403 Forbidden: If authorization token has a 'deny' value
       
-      401 Unauthorized: If the token is 'unauthorized'
+      401 Unauthorized: If authorization token has a 'unauthorized' value or if it is not provided
       
-      500 Internal Server: token is 'fail' or anything else
+      500 Internal Server: If authorization token has a value 'fail' or anything else
      
 
 # NEXT STEPS
