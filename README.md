@@ -340,17 +340,17 @@
 
   Following are the next steps which I want to implement further.
   
-  1. Write more JUnits to increase the code coverage.
+  1. Make Elastic Search Domain more secure by choosing 'VPC Access' instead of 'Public Access'. Configure private VPC, Security Groups, IAM Role and Domain Access Policy. Write a Cloudformation template.
   
-  2. Implement PMD and Checstyle plugins to improve the code quality.
+  2. Write more JUnits to increase the code coverage.
   
-  3. Set up Jenkins for Continuous Integration (CI) and Continuous Delivery/Continuous Deployment (CD). We can use Jenkins Pipeline plugin.
+  3. Implement PMD and Checstyle plugins to improve the code quality.
   
-  4. Containerization: We can use docker.
+  4. Set up Jenkins for Continuous Integration (CI) and Continuous Delivery/Continuous Deployment (CD). We can use Jenkins Pipeline plugin.
   
-  5. Write shut down script for graceful shutdown of Spring Boot application.
+  5. Containerization: We can use docker.
   
-  6. Cloudformation template for Amazon Elastic Search.
+  6. Write shut down script for graceful shutdown of Spring Boot application. 
   
   7. Pagination and Sorting of API's output.
   
