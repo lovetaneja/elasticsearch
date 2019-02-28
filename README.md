@@ -128,11 +128,11 @@
       
   3. Sample URLs
   
-     Search by Plan Name: http://localhost:8080/v1/plans/search?query=planName:MECHANICAL%20SOLUTIONS
+     Search by Plan Name: http://localhost:8080/v1/plans?query=planName:MECHANICAL%20SOLUTIONS
 
-     Search by Sponsor Name: http://localhost:8080/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
+     Search by Sponsor Name: http://localhost:8080/v1/plans?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
 
-     Search by Sponsor State: http://localhost:8080/v1/plans/search?query=sponsorState:CA
+     Search by Sponsor State: http://localhost:8080/v1/plans?query=sponsorState:CA
      
      
   4. Sample Success Response:
@@ -286,7 +286,7 @@
  5. Sample Error Response  
  
     {
-      "url": "http://localhost:8080/v1/plans/search",
+      "url": "http://localhost:8080/v1/plans",
       "errorCode": 1002,
       "errorMessage": "Error Response from Search API - Query Parameter Pattern is Not Valid"
     }
