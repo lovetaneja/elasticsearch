@@ -135,7 +135,7 @@
      Search by Sponsor State: http://localhost:8080/v1/plans/search?query=sponsorState:CA
      
      
-  4. Sample Success Response
+  4. Sample Success Response:
   
      [
       {
@@ -290,6 +290,16 @@
       "errorCode": 1002,
       "errorMessage": "Error Response from Search API - Query Parameter Pattern is Not Valid"
     }
+    
+ 6. Following will be Http Status for different failure scenarios.
+ 
+    (200, "OK"): This will be Http Status for Success Scenarios.
+    
+    (400, "Bad Request"): This will be Http Status if incoming request/query parameters are not correct.
+    
+    (503, "Service Unavailable"): This will be Http Status if service is not able to connect to Amazon Elastic Search.
+    
+    (500, "Internal Server Error"): This will be Http Status if any generic exception is there.
   
   
 # STEP 5 - Created Deployment Shell Script, Externalized Properties files and Deployed on Amazon EC2 Private Instance. 
