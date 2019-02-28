@@ -15,13 +15,13 @@ import java.util.List;
  * This is an interface for searchPlans API
  */
 @FunctionalInterface
-public interface SearchApi {
+public interface SearchPlan {
     /**
      * @param query
      * @return ResponseEntity
      * @throws IOException
      * @throws ApiException
      */
-    @RequestMapping(value = "/v1/plans/search", produces = {"application/json"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/plans", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<List<ElasticSearchResponseDTO>> searchPlans(@RequestParam(value = "query", required = false) String query) throws IOException, ApiException;
 }

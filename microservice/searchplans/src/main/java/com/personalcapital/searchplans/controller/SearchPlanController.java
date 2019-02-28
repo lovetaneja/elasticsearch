@@ -1,6 +1,6 @@
 package com.personalcapital.searchplans.controller;
 
-import com.personalcapital.searchplans.api.SearchApi;
+import com.personalcapital.searchplans.api.SearchPlan;
 import com.personalcapital.searchplans.common.SearchConstants;
 import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import com.personalcapital.searchplans.exception.ApiException;
@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
  * This is a controller class for searchPlans API
  */
 @Controller
-public class SearchApiController implements SearchApi {
+public class SearchPlanController implements SearchPlan {
 
-    private static final Logger log = LogManager.getLogger(SearchApiController.class);
+    private static final Logger log = LogManager.getLogger(SearchPlanController.class);
 
     @Autowired
     SearchService elasticSearchService;
