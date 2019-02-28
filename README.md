@@ -84,7 +84,7 @@
  
 # STEP 4 - Developed a Microservice which invoke Amazon Elastic Search Service
   
-  1. Following Technologies (with their latest versions) have been used to develop a microservice.
+  1. Following libraries (with their latest versions) have been used to develop a microservice.
   
       i.    Spring Boot: 2.1.3.RELEASE
   
@@ -128,14 +128,14 @@
       
   3. Sample URLs
   
-     Search by Plan Name: http://localhost:8080/v1/plans/search?query=planName:MECHANICAL%20SOLUTIONS
+     Search by Plan Name: http://localhost:8080/v1/plans?query=planName:MECHANICAL%20SOLUTIONS
 
-     Search by Sponsor Name: http://localhost:8080/v1/plans/search?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
+     Search by Sponsor Name: http://localhost:8080/v1/plans?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
 
-     Search by Sponsor State: http://localhost:8080/v1/plans/search?query=sponsorState:CA
+     Search by Sponsor State: http://localhost:8080/v1/plans?query=sponsorState:CA
      
      
-  4. Sample Success Response
+  4. Sample Success Response:
   
      [
       {
@@ -286,10 +286,20 @@
  5. Sample Error Response  
  
     {
-      "url": "http://localhost:8080/v1/plans/search",
+      "url": "http://localhost:8080/v1/plans",
       "errorCode": 1002,
       "errorMessage": "Error Response from Search API - Query Parameter Pattern is Not Valid"
     }
+    
+ 6. Following will be Http Status for different scenarios. These have been configured in GlobalExceptionHandler class.
+ 
+    (200, "OK"): This will be Http Status for Success Scenarios.
+    
+    (400, "Bad Request"): This will be Http Status if incoming request/query parameters are not correct.
+    
+    (503, "Service Unavailable"): This will be Http Status if service is not able to connect to Amazon Elastic Search.
+    
+    (500, "Internal Server Error"): This will be Http Status if any generic exception is there.
   
   
 # STEP 5 - Created Deployment Shell Script, Externalized Properties files and Deployed on Amazon EC2 Private Instance. 
