@@ -325,7 +325,7 @@
  
  # STEP 6 - Set Up API Gateway
  
-  1. Wrote a Clouformation Template to create ApiGateway, ApiGateway Method, ApiGateway Deployment and Stage.
+  1. Wrote a Cloudformation Template to create ApiGateway, ApiGateway Method, ApiGateway Deployment and Stage.
   
   2. Tested it with following URLs:
   
@@ -334,6 +334,27 @@
      https://a21s0in0y6.execute-api.us-east-1.amazonaws.com/v1?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
      
      https://a21s0in0y6.execute-api.us-east-1.amazonaws.com/v1?query=sponsorState:CA
+     
+  3. Added a Lambda Authorizer in API Gateway and attached it to GET method in resource. A lambda funtion has been written to autorize the request based upon the authorizationToken in the header. Following is the sample input to Lambda Authorizer function.
+    {
+      "type":"TOKEN",
+      "authorizationToken":"allow",
+      "methodArn":"arn:aws:execute-api:us-east-1:123456789012:ymy8tbxw7b/*/GET/"
+    }
+    
+  4. If we try to access URLs in step #2 above, we will get 401 Unauthorized http status. We need to add header for authorizationToken in request to access the API.
+  
+  5. As of now, lambda funtion is having logic for few hardcoded values for authorizationToken. It needs to be enhanced to actually validate the token against some provider (e.g. google token service). Client who is using this API needs to generate token against the same provider.
+  
+  6. Following are sample http response status returned from lambda function.
+  
+      200 OK: authorization token has a 'allow' value
+  
+      403 Forbidden: authorization token has a 'deny' value
+      
+      401 Unauthorized: If the token is 'unauthorized'
+      
+      500 Internal Server: token is 'fail' or anything else
      
 
 # NEXT STEPS
