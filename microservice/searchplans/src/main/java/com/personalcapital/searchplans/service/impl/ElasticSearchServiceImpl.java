@@ -3,7 +3,6 @@ package com.personalcapital.searchplans.service.impl;
 import com.google.gson.Gson;
 import com.personalcapital.searchplans.common.SearchConstants;
 import com.personalcapital.searchplans.common.SearchProperties;
-import com.personalcapital.searchplans.controller.SearchPlanController;
 import com.personalcapital.searchplans.dto.ElasticSearchResponseDTO;
 import com.personalcapital.searchplans.exception.ApiException;
 import com.personalcapital.searchplans.exception.ErrorCodes;
