@@ -321,4 +321,18 @@
 
 
       http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans?query=sponsorState:CA
+      
+ 
+ # STEP 6 - Set Up API Gateway
+ 
+  1. Wrote a Clouformation Template to create ApiGateway, ApiGateway Method, ApiGateway Deployment and Stage.
+  
+  2. Tested it with following URLs:
+  
+     https://a21s0in0y6.execute-api.us-east-1.amazonaws.com/v1?query=planName:MECHANICAL%20SOLUTIONS
+     
+     https://a21s0in0y6.execute-api.us-east-1.amazonaws.com/v1?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
+     
+     https://a21s0in0y6.execute-api.us-east-1.amazonaws.com/v1?query=sponsorState:CA
+     
 
