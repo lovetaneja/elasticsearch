@@ -291,7 +291,7 @@
       "errorMessage": "Error Response from Search API - Query Parameter Pattern is Not Valid"
     }
     
- 6. Following will be Http Status for different scenarios.
+ 6. Following will be Http Status for different scenarios. These have been configured in GlobalExceptionHandler class.
  
     (200, "OK"): This will be Http Status for Success Scenarios.
     
