@@ -314,7 +314,7 @@
   
   5. Tested application with following URLs.
   
-      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
+      http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans?query=planName:MECHANICAL%20SOLUTIONS
 
 
       http://myloadbalancer-1404011250.us-east-1.elb.amazonaws.com/v1/plans?query=sponsorName:SPECIALTY%20INSURANCE%20AGENCY
